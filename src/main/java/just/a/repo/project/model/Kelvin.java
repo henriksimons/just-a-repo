@@ -1,23 +1,18 @@
 package just.a.repo.project.model;
 
-import just.a.repo.project.model.Celcius;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-public class Kelvin {
+@SuperBuilder
+public class Kelvin extends TemperatureUnit {
 
     private double temperature;
 
-    public Celcius toCelcius() {
-        return Celcius.builder()
-                .temperature(this.temperature - 273.15)
+    public Celsius toCelcius() {
+        return Celsius.builder()
+                .temperature(this.temperature - KELVIN_COEFFICIENT)
                 .build();
     }
-
 }

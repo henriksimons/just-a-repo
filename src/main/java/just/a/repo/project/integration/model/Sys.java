@@ -13,7 +13,7 @@ public class Sys {
     private String country;
     private int id;
     private double message;
-    private int sunrise;
-    private int sunset;
+    private long sunrise; //Unix time
+    private long sunset; //Unix time
     private int type;
 }
