@@ -10,6 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Wind {
-    private int deg;
+    private double deg;
     private double speed;
 }

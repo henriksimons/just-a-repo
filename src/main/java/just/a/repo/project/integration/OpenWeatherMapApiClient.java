@@ -24,6 +24,7 @@ public class OpenWeatherMapApiClient {
             String url = getUrl();
             ResponseEntity<OpenWeatherMapApiResponse> response = restTemplate.exchange(url, HttpMethod.GET, null, OpenWeatherMapApiResponse.class);
             if (response.getStatusCode().is2xxSuccessful()) {
+                log.info("Successfully fetched weather data from OpenWeatherMap API:\n{}", url);
                 return response.getBody();
             } else return OpenWeatherMapApiResponse.builder().build();
         } catch (Exception e) {
@@ -35,14 +36,6 @@ public class OpenWeatherMapApiClient {
     private String getUrl() {
         String lat = "59.308018";
         String lon = "18.076601";
-        return UriComponentsBuilder.newInstance()
-                .scheme("http")
-                .host("api.openweathermap.org")
-                .path("/data/2.5/weather")
-                .queryParam("lat", lat)
-                .queryParam("lon", lon)
-                .queryParam("appid", apiKey)
-                .build()
-                .toString();
+        return UriComponentsBuilder.newInstance().scheme("http").host("api.openweathermap.org").path("/data/2.5/weather").queryParam("lat", lat).queryParam("lon", lon).queryParam("appid", apiKey).build().toString();
     }
 }

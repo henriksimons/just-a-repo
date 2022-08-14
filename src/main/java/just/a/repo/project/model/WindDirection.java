@@ -2,25 +2,33 @@ package just.a.repo.project.model;
 
 public enum WindDirection {
 
-    N("North"),
-    E("East"),
+    N("North", 360),
+    E("East", 90),
 
-    S("South"),
-    W("West"),
+    S("South", 180),
+    W("West", 270),
 
-    SE("South East"),
-    SW("South West"),
+    SE("South East", 135),
+    SW("South West", 225),
 
-    NE("North East"),
-    NW("North West");
+    NE("North East", 45),
+    NW("North West", 315);
 
-    public final String name;
+    private final String name;
+    private final int degrees;
 
-    WindDirection(String name) {
+
+    WindDirection(String name, int degrees) {
         this.name = name;
+        this.degrees = degrees;
+
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getDegrees() {
+        return degrees;
     }
 }
