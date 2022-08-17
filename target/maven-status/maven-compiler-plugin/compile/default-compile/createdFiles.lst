@@ -11,6 +11,7 @@ just\a\repo\project\mapper\WeatherModelMapper.class
 just\a\repo\project\controller\RestService.class
 just\a\repo\project\integration\model\Wind.class
 just\a\repo\project\model\Kelvin.class
+just\a\repo\project\service\WeatherRepository.class
 just\a\repo\project\configuration\RestTemplateConfiguration.class
 just\a\repo\project\model\Kelvin$KelvinBuilderImpl.class
 just\a\repo\project\integration\model\OpenWeatherMapApiResponse$OpenWeatherMapApiResponseBuilder.class
@@ -24,8 +25,10 @@ just\a\repo\project\model\WindDirection.class
 just\a\repo\project\integration\model\Main.class
 just\a\repo\project\model\WeatherModel.class
 just\a\repo\project\ProjectApplication.class
+just\a\repo\project\service\WeatherService.class
 just\a\repo\project\model\Celsius$CelsiusBuilder.class
 just\a\repo\project\integration\model\Coord.class
 just\a\repo\project\integration\model\Sys.class
 just\a\repo\project\model\TemperatureUnit.class
+just\a\repo\project\mongodb\model\WeatherEntity.class
 just\a\repo\project\integration\model\Clouds.class
