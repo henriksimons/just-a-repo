@@ -1,7 +1,6 @@
 package just.a.repo.project.integration;
 
 import just.a.repo.project.integration.model.OpenWeatherMapApiResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -12,12 +11,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
-public class OpenWeatherMapApiClient {
+public class OpenWeatherMapApiClient extends BaseApiClient {
 
-    private final RestTemplate restTemplate;
     @Value("${openweathermap.api.key}")
     private String apiKey;
+
+    public OpenWeatherMapApiClient(RestTemplate restTemplate) {
+        super(restTemplate);
+    }
 
     public OpenWeatherMapApiResponse getWeather() {
         try {
