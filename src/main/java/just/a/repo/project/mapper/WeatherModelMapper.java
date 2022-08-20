@@ -1,6 +1,6 @@
 package just.a.repo.project.mapper;
 
-import just.a.repo.project.integration.model.OpenWeatherMapApiResponse;
+import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapApiResponse;
 import just.a.repo.project.model.Kelvin;
 import just.a.repo.project.model.WeatherModel;
 import just.a.repo.project.model.WindDirection;

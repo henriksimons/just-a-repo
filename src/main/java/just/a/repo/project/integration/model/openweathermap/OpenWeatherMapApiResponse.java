@@ -1,4 +1,4 @@
-package just.a.repo.project.integration.model;
+package just.a.repo.project.integration.model.openweathermap;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

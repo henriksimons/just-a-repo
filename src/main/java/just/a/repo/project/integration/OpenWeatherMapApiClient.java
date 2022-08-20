@@ -1,6 +1,7 @@
 package just.a.repo.project.integration;
 
-import just.a.repo.project.integration.model.OpenWeatherMapApiResponse;
+import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapApiResponse;
+import just.a.repo.project.model.Coordinates;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -20,23 +21,32 @@ public class OpenWeatherMapApiClient extends BaseApiClient {
         super(restTemplate);
     }
 
-    public OpenWeatherMapApiResponse getWeather() {
+    public OpenWeatherMapApiResponse getWeather(Coordinates coordinates) {
         try {
-            String url = getUrl();
+            String url = getUrl(coordinates);
             ResponseEntity<OpenWeatherMapApiResponse> response = restTemplate.exchange(url, HttpMethod.GET, null, OpenWeatherMapApiResponse.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 log.info("Successfully fetched weather data from OpenWeatherMap API:\n{}", url);
                 return response.getBody();
-            } else return OpenWeatherMapApiResponse.builder().build();
+            } else
+                return OpenWeatherMapApiResponse.builder().build();
         } catch (Exception e) {
             log.error("Could not fetch weather due to error: {}", e.getMessage(), e);
             return OpenWeatherMapApiResponse.builder().build();
         }
     }
 
-    private String getUrl() {
-        String lat = "59.308018";
-        String lon = "18.076601";
-        return UriComponentsBuilder.newInstance().scheme("http").host("api.openweathermap.org").path("/data/2.5/weather").queryParam("lat", lat).queryParam("lon", lon).queryParam("appid", apiKey).build().toString();
+    private String getUrl(Coordinates coordinates) {
+        String lat = coordinates.getLat().toString();
+        String lon = coordinates.getLon().toString();
+        return UriComponentsBuilder.newInstance()
+                .scheme("http")
+                .host("api.openweathermap.org")
+                .path("/data/2.5/weather")
+                .queryParam("lat", lat)
+                .queryParam("lon", lon)
+                .queryParam("appid", apiKey)
+                .build()
+                .toString();
     }
 }

@@ -1,7 +1,9 @@
-package just.a.repo.project.integration.model;
+package just.a.repo.project.integration.model.positionstack;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -9,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Clouds {
-    private int all;
+public class Data {
+    public ArrayList<Result> results;
 }
+

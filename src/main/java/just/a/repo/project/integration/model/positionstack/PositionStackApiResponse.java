@@ -1,7 +1,9 @@
-package just.a.repo.project.integration.model;
+package just.a.repo.project.integration.model.positionstack;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -9,7 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Coord {
-    private double lat;
-    private double lon;
+public class PositionStackApiResponse {
+    public List<Result> data;
 }

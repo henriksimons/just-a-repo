@@ -1,4 +1,4 @@
-package just.a.repo.project.integration.model;
+package just.a.repo.project.integration.model.openweathermap;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -9,9 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Weather {
-    private String description;
-    private String icon;
-    private int id;
-    private String main;
+public class Clouds {
+    private int all;
 }
