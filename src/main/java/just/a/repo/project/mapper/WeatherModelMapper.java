@@ -14,8 +14,6 @@ import static just.a.repo.project.model.WindDirection.*;
 
 public class WeatherModelMapper {
 
-    public static final double DIRECTION_RANGE = 22.5;
-
     public static WeatherModel map(OpenWeatherMapApiResponse response) {
 
         return WeatherModel.builder().description(getDescription(response)).feelsLikeTemperature(getFeelsLike(response)).humidity(getHumidity(response)).pressure(getPressure(response)).sunrise(getSunrise(response)).sunset(getSunset(response)).temperature(getTemperature(response)).weatherConditions(getWeatherConditions(response)).windDirection(getWindDirection(response)).windSpeed(getWindSpeed(response)).build();
