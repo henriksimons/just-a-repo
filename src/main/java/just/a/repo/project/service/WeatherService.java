@@ -31,7 +31,8 @@ public class WeatherService {
     public Coordinates getLocationCoordinates(String location) {
         PositionStackApiResponse positionApiResponse = positionStackApiClient.getLocationData(location);
         if (positionApiResponse.getData() != null) {
-            log.info("Received location data for: {}", location);
+            String logMessage = positionApiResponse.getData().isEmpty() ? location : positionApiResponse.getData().get(0).getLabel();
+            log.info("Received location data for: {}", logMessage);
         }
         Coordinates searchCoordinates = CoordinatesMapper.map(positionApiResponse);
         log.info("Converted location to coordinates: {}", searchCoordinates);
