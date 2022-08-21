@@ -1,6 +1,6 @@
 package just.a.repo.project.mapper;
 
-import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapApiResponse;
+import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapWeatherResponse;
 import just.a.repo.project.model.Kelvin;
 import just.a.repo.project.model.WeatherModel;
 import just.a.repo.project.model.WindDirection;
@@ -10,33 +10,48 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+import static just.a.repo.project.mapper.Utils.*;
 import static just.a.repo.project.model.WindDirection.*;
 
 public class WeatherModelMapper {
 
-    public static WeatherModel map(OpenWeatherMapApiResponse response) {
+    public static WeatherModel map(OpenWeatherMapWeatherResponse response) {
 
-        return WeatherModel.builder().description(getDescription(response)).feelsLikeTemperature(getFeelsLike(response)).humidity(getHumidity(response)).pressure(getPressure(response)).sunrise(getSunrise(response)).sunset(getSunset(response)).temperature(getTemperature(response)).weatherConditions(getWeatherConditions(response)).windDirection(getWindDirection(response)).windSpeed(getWindSpeed(response)).build();
+        return WeatherModel.builder()
+                .description(mapDescription(response)) //"Växlande molnighet"
+                .feelsLikeTemperature(mapFeelsLikeTemperature(response))
+                .humidity(mapHumidity(response))
+                //.pressure(getPressure(response))
+                .sunrise(mapSunRise(response))
+                .sunset(mapSunset(response))
+                .temperature(mapTemperature(response))
+                //.weatherConditions(getWeatherConditions(response)) "Clouds"
+                .windDirection(mapWindDirection(response))
+                .windSpeed(mapWindSpeed(response))
+                .build();
     }
 
-    private static String getDescription(OpenWeatherMapApiResponse response) {
+    private static String mapDescription(OpenWeatherMapWeatherResponse response) {
         return response.getWeather().get(0).getDescription();
     }
 
-    private static double getFeelsLike(OpenWeatherMapApiResponse response) {
-        Kelvin feelsLike = Kelvin.builder().temperature(response.getMain().getFeels_like()).build();
-        return Math.round(feelsLike.toCelcius().getTemperature());
+    private static String mapFeelsLikeTemperature(OpenWeatherMapWeatherResponse response) {
+        Kelvin feelsLike = Kelvin.builder()
+                .temperature(response.getMain().getFeels_like())
+                .build();
+
+        return Math.round(feelsLike.toCelcius().getTemperature()) + CELCIUS_TEXT;
     }
 
-    private static double getHumidity(OpenWeatherMapApiResponse response) {
-        return response.getMain().getHumidity();
+    private static String mapHumidity(OpenWeatherMapWeatherResponse response) {
+        return response.getMain().getHumidity() + HUMIDITY_TEXT;
     }
 
-    private static double getPressure(OpenWeatherMapApiResponse response) {
+    private static double getPressure(OpenWeatherMapWeatherResponse response) {
         return response.getMain().getPressure();
     }
 
-    private static String getSunrise(OpenWeatherMapApiResponse response) {
+    private static String mapSunRise(OpenWeatherMapWeatherResponse response) {
         LocalDateTime sunriseTime = getLocalDateTime(response.getSys().getSunrise());
         return sunriseTime.format(getDateTimeFormatterHHmm());
     }
@@ -50,21 +65,24 @@ public class WeatherModelMapper {
         return LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTime), ZoneId.of(ZoneId.SHORT_IDS.get("ECT")));
     }
 
-    private static String getSunset(OpenWeatherMapApiResponse response) {
+    private static String mapSunset(OpenWeatherMapWeatherResponse response) {
         LocalDateTime sunsetTime = getLocalDateTime(response.getSys().getSunset());
         return sunsetTime.format(getDateTimeFormatterHHmm());
     }
 
-    private static double getTemperature(OpenWeatherMapApiResponse response) {
-        Kelvin temperature = Kelvin.builder().temperature(response.getMain().getTemp()).build();
-        return Math.round(temperature.toCelcius().getTemperature());
+    private static String mapTemperature(OpenWeatherMapWeatherResponse response) {
+        Kelvin temperature = Kelvin.builder()
+                .temperature(response.getMain().getTemp())
+                .build();
+        return Math.round(temperature.toCelcius().getTemperature()) + CELCIUS_TEXT;
     }
 
-    private static String getWeatherConditions(OpenWeatherMapApiResponse response) {
+    private static String getWeatherConditions(OpenWeatherMapWeatherResponse response) {
+        //Vi mottar svaret på engelska, t.ex. "Clouds".
         return response.getWeather().get(0).getMain();
     }
 
-    private static String getWindDirection(OpenWeatherMapApiResponse response) {
+    private static String mapWindDirection(OpenWeatherMapWeatherResponse response) {
         double direction = response.getWind().getDeg();
 
         if (direction >= 0 && direction < 30) {
@@ -86,14 +104,14 @@ public class WeatherModelMapper {
         } else if (direction >= 330 && direction < 360) {
             return getText(direction, N);
         }
-        return "UNKNOWN DIRECTION";
+        return "";
     }
 
     private static String getText(double degrees, WindDirection windDirection) {
-        return String.format("%s degrees %s", degrees, windDirection.getName());
+        return String.format("%s° %s", degrees, windDirection.getName());
     }
 
-    private static double getWindSpeed(OpenWeatherMapApiResponse response) {
-        return response.getWind().getSpeed();
+    private static String mapWindSpeed(OpenWeatherMapWeatherResponse response) {
+        return response.getWind().getSpeed() + WIND_SPEED_TEXT;
     }
 }

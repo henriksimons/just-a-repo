@@ -1,9 +1,6 @@
 package just.a.repo.project.model;
 
 import lombok.*;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,14 +10,14 @@ import java.time.LocalDateTime;
 public class WeatherModel {
 
     private String description;
-    private Double feelsLikeTemperature;
-    private Double humidity;
-    private Double pressure;
+    private String feelsLikeTemperature;
+    private String humidity;
+    //private Double pressure; Tog bort eftersom orelevant.
     private String sunrise;
     private String sunset;
-    private Double temperature;
-    private String weatherConditions;
+    private String temperature;
+    //private String weatherConditions; Tog bort eftersom den ersätts av description på svenska.
     private String windDirection;
-    private Double windSpeed;
+    private String windSpeed;
 
 }

@@ -2,7 +2,8 @@ package just.a.repo.project.service;
 
 import just.a.repo.project.integration.OpenWeatherMapApiClient;
 import just.a.repo.project.integration.PositionStackApiClient;
-import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapApiResponse;
+import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapWeatherResponse;
+import just.a.repo.project.integration.model.openweathermap.fivedayprognosis.OpenWeatherMapPrognosisResponse;
 import just.a.repo.project.integration.model.positionstack.PositionStackApiResponse;
 import just.a.repo.project.mapper.CoordinatesMapper;
 import just.a.repo.project.mapper.WeatherEntityMapper;
@@ -40,15 +41,31 @@ public class WeatherService {
         return getWeather(coordinates, location);
     }
 
+    public WeatherModel getPrognosis(String location) {
+        Coordinates coordinates = getLocationCoordinates(location);
+        return getPrognosis(coordinates, location);
+    }
+
     private WeatherModel getWeather(@NonNull Coordinates coordinates, String location) {
         if (coordinates.getLat() == null || coordinates.getLon() == null) {
             return WeatherModel.builder().build();
         }
-        OpenWeatherMapApiResponse weatherApiResponse = openWeatherMapApiClient.getWeather(coordinates);
+        OpenWeatherMapWeatherResponse weatherApiResponse = openWeatherMapApiClient.getWeather(coordinates);
         if (!weatherApiResponse.getWeather().isEmpty()) {
             log.info("Received weather information for : {}", location);
         }
         return WeatherModelMapper.map(weatherApiResponse);
+    }
+
+    private WeatherModel getPrognosis(@NonNull Coordinates coordinates, String location) {
+        if (coordinates.getLat() == null || coordinates.getLon() == null) {
+            return WeatherModel.builder().build();
+        }
+        OpenWeatherMapPrognosisResponse weatherApiResponse = openWeatherMapApiClient.getPrognosis(coordinates);
+        if (!weatherApiResponse.getList().isEmpty()) {
+            log.info("Received weather information for : {}", location);
+        }
+        return WeatherModel.builder().build();
     }
 
     public ResponseObject<WeatherEntity> saveWeatherEntity(WeatherModel weatherModel) {

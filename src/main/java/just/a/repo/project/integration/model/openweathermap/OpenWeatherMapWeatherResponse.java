@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OpenWeatherMapApiResponse {
+public class OpenWeatherMapWeatherResponse {
     private String base;
     private Clouds clouds;
     private int cod;

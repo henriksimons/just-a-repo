@@ -2,17 +2,17 @@ package just.a.repo.project.model;
 
 public enum WindDirection {
 
-    N("North", 360),
-    E("East", 90),
+    N("N", 360),
+    E("E", 90),
 
-    S("South", 180),
-    W("West", 270),
+    S("S", 180),
+    W("W", 270),
 
-    SE("South East", 135),
-    SW("South West", 225),
+    SE("S-E", 135),
+    SW("S-W", 225),
 
-    NE("North East", 45),
-    NW("North West", 315);
+    NE("N-E", 45),
+    NW("N-W", 315);
 
     private final String name;
     private final int degrees;
