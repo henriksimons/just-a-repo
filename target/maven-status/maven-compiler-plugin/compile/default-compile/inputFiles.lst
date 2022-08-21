@@ -5,13 +5,16 @@ C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\mapper\WeatherEntit
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\WeatherRepository.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\Kelvin.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\mapper\WeatherModelMapper.java
+C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\Coordinates.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\openweathermap\OpenWeatherMapApiResponse.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\WeatherService.java
+C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\mapper\CoordinatesMapper.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\BaseApiClient.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\SaveWeatherModelResponse.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\ResponseObject.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\WindDirection.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\controller\RestService.java
+C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\CacheService.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\TemperatureUnit.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\openweathermap\Clouds.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\PositionStackApiClient.java
@@ -22,6 +25,7 @@ C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\p
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\openweathermap\Weather.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\openweathermap\Wind.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\configuration\RestTemplateConfiguration.java
+C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\positionstack\Data.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\Celsius.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\OpenWeatherMapApiClient.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\openweathermap\Coord.java
