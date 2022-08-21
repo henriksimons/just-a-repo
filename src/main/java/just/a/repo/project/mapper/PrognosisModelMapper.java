@@ -9,10 +9,7 @@ import just.a.repo.project.model.prognosis.DaySegment;
 import just.a.repo.project.model.prognosis.PrognosisModel;
 import just.a.repo.project.model.weather.WeatherModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static just.a.repo.project.mapper.Utils.CELCIUS_TEXT;
@@ -32,6 +29,9 @@ public class PrognosisModelMapper {
                         .collect(Collectors.toList());
 
                 Day day = mapDay(date, daySegments);
+
+                Collections.sort(days);
+
                 days.add(day);
             });
 
@@ -93,18 +93,11 @@ public class PrognosisModelMapper {
 
     // TODO: 2022-08-21 Generify!
     private static String mapFeelsLikeTemperature(ListEntity entity) {
-        Kelvin feelsLike = Kelvin.builder()
-                .temperature(entity.getMain().getFeels_like())
-                .build();
-
-        return Math.round(feelsLike.toCelcius().getTemperature()) + CELCIUS_TEXT;
+        return Math.round(entity.getMain().getFeels_like()) + CELCIUS_TEXT;
     }
 
     private static String mapTemperature(ListEntity entity) {
-        Kelvin temperature = Kelvin.builder()
-                .temperature(entity.getMain().getTemp())
-                .build();
-        return Math.round(temperature.toCelcius().getTemperature()) + CELCIUS_TEXT;
+        return Math.round(entity.getMain().getTemp()) + CELCIUS_TEXT;
     }
 
     private static String mapHumidity(ListEntity entity) {

@@ -9,8 +9,14 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Day {
+public class Day implements Comparable<Day> {
 
     private String date;
     private List<DaySegment> partsOfDay;
+
+    @Override
+    public int compareTo(Day d) {
+        return this.date.compareTo(d.getDate());
+    }
+
 }

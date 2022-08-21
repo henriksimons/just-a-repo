@@ -86,6 +86,7 @@ public class OpenWeatherMapApiClient extends BaseApiClient {
                 .queryParam("lon", lon)
                 .queryParam("appid", apiKey)
                 .queryParam("lang", "SV")
+                .queryParam("units", "metric")
                 .build()
                 .toString();
     }
