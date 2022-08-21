@@ -6,10 +6,12 @@ import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapWeathe
 import just.a.repo.project.integration.model.openweathermap.fivedayprognosis.OpenWeatherMapPrognosisResponse;
 import just.a.repo.project.integration.model.positionstack.PositionStackApiResponse;
 import just.a.repo.project.mapper.CoordinatesMapper;
+import just.a.repo.project.mapper.PrognosisModelMapper;
 import just.a.repo.project.mapper.WeatherEntityMapper;
 import just.a.repo.project.mapper.WeatherModelMapper;
 import just.a.repo.project.model.Coordinates;
-import just.a.repo.project.model.WeatherModel;
+import just.a.repo.project.model.prognosis.PrognosisModel;
+import just.a.repo.project.model.weather.WeatherModelExtended;
 import just.a.repo.project.mongodb.model.WeatherEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,41 +38,41 @@ public class WeatherService {
         return searchCoordinates;
     }
 
-    public WeatherModel getWeather(String location) {
+    public WeatherModelExtended getWeather(String location) {
         Coordinates coordinates = getLocationCoordinates(location);
         return getWeather(coordinates, location);
     }
 
-    public WeatherModel getPrognosis(String location) {
+    public PrognosisModel getPrognosis(String location) {
         Coordinates coordinates = getLocationCoordinates(location);
         return getPrognosis(coordinates, location);
     }
 
-    private WeatherModel getWeather(@NonNull Coordinates coordinates, String location) {
+    private WeatherModelExtended getWeather(@NonNull Coordinates coordinates, String location) {
         if (coordinates.getLat() == null || coordinates.getLon() == null) {
-            return WeatherModel.builder().build();
+            return WeatherModelExtended.builder().build();
         }
         OpenWeatherMapWeatherResponse weatherApiResponse = openWeatherMapApiClient.getWeather(coordinates);
         if (!weatherApiResponse.getWeather().isEmpty()) {
-            log.info("Received weather information for : {}", location);
+            log.info("Received weather for : {}", location);
         }
         return WeatherModelMapper.map(weatherApiResponse);
     }
 
-    private WeatherModel getPrognosis(@NonNull Coordinates coordinates, String location) {
+    private PrognosisModel getPrognosis(@NonNull Coordinates coordinates, String location) {
         if (coordinates.getLat() == null || coordinates.getLon() == null) {
-            return WeatherModel.builder().build();
+            return PrognosisModel.builder().build();
         }
-        OpenWeatherMapPrognosisResponse weatherApiResponse = openWeatherMapApiClient.getPrognosis(coordinates);
-        if (!weatherApiResponse.getList().isEmpty()) {
-            log.info("Received weather information for : {}", location);
+        OpenWeatherMapPrognosisResponse prognosisApiResponse = openWeatherMapApiClient.getPrognosis(coordinates);
+        if (!prognosisApiResponse.getList().isEmpty()) {
+            log.info("Received prognosis for : {}", location);
         }
-        return WeatherModel.builder().build();
+        return PrognosisModelMapper.map(prognosisApiResponse);
     }
 
-    public ResponseObject<WeatherEntity> saveWeatherEntity(WeatherModel weatherModel) {
+    public ResponseObject<WeatherEntity> saveWeatherEntity(WeatherModelExtended weatherExtendedModel) {
         try {
-            WeatherEntity entity = WeatherEntityMapper.map(weatherModel);
+            WeatherEntity entity = WeatherEntityMapper.map(weatherExtendedModel);
             if (entity == null) {
                 return createResponseObject(false, null);
             } else {

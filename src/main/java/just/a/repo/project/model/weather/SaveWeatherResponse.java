@@ -1,4 +1,4 @@
-package just.a.repo.project.model;
+package just.a.repo.project.model.weather;
 
 import just.a.repo.project.mongodb.model.WeatherEntity;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class SaveWeatherModelResponse {
+public class SaveWeatherResponse {
 
     private WeatherEntity savedEntity;
     private boolean successful;

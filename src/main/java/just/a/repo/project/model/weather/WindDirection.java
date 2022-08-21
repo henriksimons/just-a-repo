@@ -1,4 +1,4 @@
-package just.a.repo.project.model;
+package just.a.repo.project.model.weather;
 
 public enum WindDirection {
 

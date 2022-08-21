@@ -1,6 +1,6 @@
 package just.a.repo.project.mapper;
 
-import just.a.repo.project.model.WeatherModel;
+import just.a.repo.project.model.weather.WeatherModelExtended;
 import just.a.repo.project.mongodb.model.WeatherEntity;
 
 import java.time.Instant;
@@ -10,7 +10,7 @@ import static just.a.repo.project.mapper.Utils.*;
 
 public class WeatherEntityMapper {
 
-    public static WeatherEntity map(WeatherModel model) {
+    public static WeatherEntity map(WeatherModelExtended model) {
         try {
             if (isNull(model)) {
                 return null;

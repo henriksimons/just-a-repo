@@ -2,8 +2,9 @@ package just.a.repo.project.controller;
 
 import just.a.repo.project.integration.OpenWeatherMapApiClient;
 import just.a.repo.project.model.Coordinates;
-import just.a.repo.project.model.SaveWeatherModelResponse;
-import just.a.repo.project.model.WeatherModel;
+import just.a.repo.project.model.prognosis.PrognosisModel;
+import just.a.repo.project.model.weather.SaveWeatherResponse;
+import just.a.repo.project.model.weather.WeatherModelExtended;
 import just.a.repo.project.mongodb.model.WeatherEntity;
 import just.a.repo.project.service.ResponseObject;
 import just.a.repo.project.service.WeatherService;
@@ -29,7 +30,7 @@ public class RestService {
     }
 
     @GetMapping("/prognosis")
-    public ResponseEntity<WeatherModel> getPrognosis(@RequestParam String location) {
+    public ResponseEntity<PrognosisModel> getPrognosis(@RequestParam String location) {
         try {
             return ResponseEntity.ok(weatherService.getPrognosis(location));
         } catch (Exception e) {
@@ -38,7 +39,7 @@ public class RestService {
     }
 
     @GetMapping("/weather")
-    public ResponseEntity<WeatherModel> getWeather(@RequestParam String location) {
+    public ResponseEntity<WeatherModelExtended> getWeather(@RequestParam String location) {
         try {
             return ResponseEntity.ok(weatherService.getWeather(location));
         } catch (Exception e) {
@@ -47,14 +48,14 @@ public class RestService {
     }
 
     @PostMapping("/weather")
-    public ResponseEntity<SaveWeatherModelResponse> saveWeather(@RequestParam String location) {
+    public ResponseEntity<SaveWeatherResponse> saveWeather(@RequestParam String location) {
         //Fetch weather
-        WeatherModel weatherModel = weatherService.getWeather(location);
+        WeatherModelExtended weatherExtendedModel = weatherService.getWeather(location);
         //Save weather to DB
-        ResponseObject<WeatherEntity> response = weatherService.saveWeatherEntity(weatherModel);
+        ResponseObject<WeatherEntity> response = weatherService.saveWeatherEntity(weatherExtendedModel);
 
         if (response.isSuccessful()) {
-            return ResponseEntity.ok(SaveWeatherModelResponse.builder()
+            return ResponseEntity.ok(SaveWeatherResponse.builder()
                     .successful(response.isSuccessful())
                     .savedEntity(response.getContent())
                     .build());

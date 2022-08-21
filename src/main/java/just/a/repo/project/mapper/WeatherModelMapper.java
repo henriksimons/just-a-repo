@@ -2,8 +2,9 @@ package just.a.repo.project.mapper;
 
 import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapWeatherResponse;
 import just.a.repo.project.model.Kelvin;
-import just.a.repo.project.model.WeatherModel;
-import just.a.repo.project.model.WindDirection;
+import just.a.repo.project.model.weather.WeatherModel;
+import just.a.repo.project.model.weather.WeatherModelExtended;
+import just.a.repo.project.model.weather.WindDirection;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -11,13 +12,13 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import static just.a.repo.project.mapper.Utils.*;
-import static just.a.repo.project.model.WindDirection.*;
+import static just.a.repo.project.model.weather.WindDirection.*;
 
 public class WeatherModelMapper {
 
-    public static WeatherModel map(OpenWeatherMapWeatherResponse response) {
+    public static WeatherModelExtended map(OpenWeatherMapWeatherResponse response) {
 
-        return WeatherModel.builder()
+        return WeatherModelExtended.builder()
                 .description(mapDescription(response)) //"Växlande molnighet"
                 .feelsLikeTemperature(mapFeelsLikeTemperature(response))
                 .humidity(mapHumidity(response))
