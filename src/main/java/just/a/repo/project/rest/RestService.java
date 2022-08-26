@@ -1,4 +1,4 @@
-package just.a.repo.project.controller;
+package just.a.repo.project.rest;
 
 import just.a.repo.project.integration.OpenWeatherMapApiClient;
 import just.a.repo.project.model.Coordinates;

@@ -22,6 +22,7 @@ just\a\repo\project\mapper\PrognosisModelMapper.class
 just\a\repo\project\model\TemperatureUnit$TemperatureUnitBuilderImpl.class
 just\a\repo\project\integration\model\openweathermap\Wind$WindBuilder.class
 just\a\repo\project\model\Celsius.class
+just\a\repo\project\rest\RestService.class
 just\a\repo\project\model\prognosis\PrognosisModel.class
 just\a\repo\project\integration\PositionStackApiClient.class
 just\a\repo\project\model\weather\WeatherModel.class
@@ -40,7 +41,6 @@ just\a\repo\project\integration\model\openweathermap\Clouds.class
 just\a\repo\project\model\weather\WeatherModelExtended$WeatherModelExtendedBuilder.class
 just\a\repo\project\integration\OpenWeatherMapApiClient.class
 just\a\repo\project\integration\model\positionstack\Result.class
-just\a\repo\project\controller\RestService.class
 just\a\repo\project\integration\model\openweathermap\Main.class
 just\a\repo\project\model\Kelvin.class
 just\a\repo\project\integration\BaseApiClient.class

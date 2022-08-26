@@ -1,5 +1,6 @@
 package just.a.repo.project.service;
 
+import com.google.common.cache.Cache;
 import just.a.repo.project.integration.OpenWeatherMapApiClient;
 import just.a.repo.project.integration.PositionStackApiClient;
 import just.a.repo.project.integration.model.openweathermap.OpenWeatherMapWeatherResponse;
@@ -15,8 +16,12 @@ import just.a.repo.project.model.weather.WeatherModelExtended;
 import just.a.repo.project.mongodb.model.WeatherEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -26,6 +31,7 @@ public class WeatherService {
     private final WeatherRepository weatherRepository;
     private final OpenWeatherMapApiClient openWeatherMapApiClient;
     private final PositionStackApiClient positionStackApiClient;
+    private final CacheService cacheService;
 
 
     public Coordinates getLocationCoordinates(String location) {
@@ -41,7 +47,13 @@ public class WeatherService {
 
     public WeatherModelExtended getWeather(String location) {
         Coordinates coordinates = getLocationCoordinates(location);
+        getPrognosisAsync(coordinates, location); // TODO: 2022-08-26 Finish!
         return getWeather(coordinates, location);
+    }
+
+    @Async
+    public CompletableFuture<PrognosisModel> getPrognosisAsync(Coordinates coordinates, String location) {
+        return CompletableFuture.completedFuture(getPrognosis(coordinates, location));
     }
 
     public PrognosisModel getPrognosis(String location) {
