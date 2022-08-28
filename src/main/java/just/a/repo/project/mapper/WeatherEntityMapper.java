@@ -1,7 +1,7 @@
 package just.a.repo.project.mapper;
 
 import just.a.repo.project.model.weather.WeatherModelExtended;
-import just.a.repo.project.mongodb.model.WeatherEntity;
+import just.a.repo.project.model.mongodb.WeatherEntity;
 
 import java.time.Instant;
 

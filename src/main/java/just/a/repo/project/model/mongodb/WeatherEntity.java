@@ -1,4 +1,4 @@
-package just.a.repo.project.mongodb.model;
+package just.a.repo.project.model.mongodb;
 
 import lombok.Builder;
 import lombok.Getter;

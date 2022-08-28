@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Controller
-public class OpenWeatherMapApiClient extends BaseApiClient {
+public class OpenWeatherMapApiClient extends BaseApiClient implements RestClient {
 
     @Value("${openweathermap.api.key}")
     private String apiKey;
@@ -24,12 +24,8 @@ public class OpenWeatherMapApiClient extends BaseApiClient {
 
     public OpenWeatherMapWeatherResponse getWeather(Coordinates coordinates) {
         try {
-            String url = getWeatherUrl(coordinates);
-            ResponseEntity<OpenWeatherMapWeatherResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    OpenWeatherMapWeatherResponse.class);
+            String url = getUrl(coordinates);
+            ResponseEntity<OpenWeatherMapWeatherResponse> response = executeRequest(url);
             if (response.getStatusCode().is2xxSuccessful()) {
                 log.info("Successfully fetched weather data from OpenWeatherMap API:\n{}", url);
                 return response.getBody();
@@ -41,7 +37,16 @@ public class OpenWeatherMapApiClient extends BaseApiClient {
         }
     }
 
-    private String getWeatherUrl(Coordinates coordinates) {
+    @Override
+    public ResponseEntity<OpenWeatherMapWeatherResponse> executeRequest(String url) {
+        return restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                OpenWeatherMapWeatherResponse.class);
+    }
+
+    private String getUrl(Coordinates coordinates) {
         String lat = coordinates.getLat().toString();
         String lon = coordinates.getLon().toString();
         return UriComponentsBuilder.newInstance()

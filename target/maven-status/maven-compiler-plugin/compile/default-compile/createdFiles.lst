@@ -12,12 +12,12 @@ just\a\repo\project\configuration\CacheConfiguration.class
 just\a\repo\project\integration\model\openweathermap\fivedayprognosis\ListEntity$ListEntityBuilder.class
 just\a\repo\project\mapper\WeatherModelMapper.class
 just\a\repo\project\integration\model\openweathermap\fivedayprognosis\OpenWeatherMapPrognosisResponse$OpenWeatherMapPrognosisResponseBuilder.class
-just\a\repo\project\mongodb\model\WeatherEntity$WeatherEntityBuilder.class
 just\a\repo\project\integration\model\openweathermap\Coord.class
 just\a\repo\project\integration\model\openweathermap\Main$MainBuilder.class
 just\a\repo\project\integration\model\positionstack\PositionStackApiResponse$PositionStackApiResponseBuilder.class
 just\a\repo\project\integration\model\openweathermap\fivedayprognosis\ListEntity.class
 just\a\repo\project\model\weather\WeatherModel$WeatherModelBuilder.class
+just\a\repo\project\service\WeatherServiceImpl.class
 just\a\repo\project\mapper\PrognosisModelMapper.class
 just\a\repo\project\model\TemperatureUnit$TemperatureUnitBuilderImpl.class
 just\a\repo\project\integration\model\openweathermap\Wind$WindBuilder.class
@@ -39,9 +39,11 @@ just\a\repo\project\model\Celsius$CelsiusBuilderImpl.class
 just\a\repo\project\model\Coordinates.class
 just\a\repo\project\integration\model\openweathermap\Clouds.class
 just\a\repo\project\model\weather\WeatherModelExtended$WeatherModelExtendedBuilder.class
+just\a\repo\project\model\mongodb\WeatherEntity$WeatherEntityBuilder.class
 just\a\repo\project\integration\OpenWeatherMapApiClient.class
 just\a\repo\project\integration\model\positionstack\Result.class
 just\a\repo\project\integration\model\openweathermap\Main.class
+just\a\repo\project\integration\RestClient.class
 just\a\repo\project\model\Kelvin.class
 just\a\repo\project\integration\BaseApiClient.class
 just\a\repo\project\service\WeatherRepository.class
@@ -62,8 +64,8 @@ just\a\repo\project\integration\model\openweathermap\fivedayprognosis\OpenWeathe
 just\a\repo\project\model\Kelvin$KelvinBuilder.class
 just\a\repo\project\integration\model\openweathermap\Wind.class
 just\a\repo\project\service\CacheService.class
+just\a\repo\project\model\mongodb\WeatherEntity.class
 just\a\repo\project\ProjectApplication.class
 just\a\repo\project\model\prognosis\PrognosisModel$PrognosisModelBuilder.class
 just\a\repo\project\service\WeatherService.class
 just\a\repo\project\integration\model\positionstack\Data$DataBuilder.class
-just\a\repo\project\mongodb\model\WeatherEntity.class

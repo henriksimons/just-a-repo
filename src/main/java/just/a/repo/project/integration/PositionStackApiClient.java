@@ -1,6 +1,5 @@
 package just.a.repo.project.integration;
 
-import just.a.repo.project.integration.model.positionstack.Data;
 import just.a.repo.project.integration.model.positionstack.PositionStackApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Controller
-public class PositionStackApiClient extends BaseApiClient {
+public class PositionStackApiClient extends BaseApiClient implements RestClient {
 
     @Value("${positionstack.api.key}")
     private String apiKey;
@@ -37,7 +36,7 @@ public class PositionStackApiClient extends BaseApiClient {
         }
     }
 
-    private ResponseEntity<PositionStackApiResponse> executeRequest(String url) {
+    public ResponseEntity<PositionStackApiResponse> executeRequest(String url) {
         return restTemplate.exchange(
                 url,
                 HttpMethod.GET,

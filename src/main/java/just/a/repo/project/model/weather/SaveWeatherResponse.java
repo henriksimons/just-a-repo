@@ -1,6 +1,6 @@
 package just.a.repo.project.model.weather;
 
-import just.a.repo.project.mongodb.model.WeatherEntity;
+import just.a.repo.project.model.mongodb.WeatherEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

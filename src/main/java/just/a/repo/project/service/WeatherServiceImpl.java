@@ -12,7 +12,7 @@ import just.a.repo.project.mapper.WeatherModelMapper;
 import just.a.repo.project.model.Coordinates;
 import just.a.repo.project.model.prognosis.PrognosisModel;
 import just.a.repo.project.model.weather.WeatherModelExtended;
-import just.a.repo.project.mongodb.model.WeatherEntity;
+import just.a.repo.project.model.mongodb.WeatherEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -47,14 +47,16 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public WeatherModelExtended getWeather(String location) {
         Coordinates coordinates = getLocationCoordinates(location);
-        getPrognosisAsync(coordinates, location); // TODO: 2022-08-26 Finish!
+        //Fetching this asynchronously to save time.
+        // TODO: 2022-08-28 Implement a save of this somewhere...
+        CompletableFuture<PrognosisModel> prognosis = getPrognosisAsync(coordinates, location);
         return getWeather(coordinates, location);
     }
 
     @Override
     @Async
     public CompletableFuture<PrognosisModel> getPrognosisAsync(Coordinates coordinates, String location) {
-        return CompletableFuture.completedFuture(getPrognosis(coordinates, location));
+        return CompletableFuture.supplyAsync(() -> getPrognosis(coordinates, location));
     }
 
     @Override

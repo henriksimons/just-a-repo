@@ -1,6 +1,6 @@
 package just.a.repo.project.service;
 
-import just.a.repo.project.mongodb.model.WeatherEntity;
+import just.a.repo.project.model.mongodb.WeatherEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
