@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -25,7 +26,7 @@ public class OpenWeatherMapApiClient extends BaseApiClient implements RestClient
     public OpenWeatherMapWeatherResponse getWeather(Coordinates coordinates) {
         try {
             String url = getUrl(coordinates);
-            ResponseEntity<OpenWeatherMapWeatherResponse> response = executeRequest(url);
+            ResponseEntity<OpenWeatherMapWeatherResponse> response = executeRequestRepeated(url, 1, 5);
             if (response.getStatusCode().is2xxSuccessful()) {
                 log.info("Successfully fetched weather data from OpenWeatherMap API:\n{}", url);
                 return response.getBody();
@@ -44,6 +45,24 @@ public class OpenWeatherMapApiClient extends BaseApiClient implements RestClient
                 HttpMethod.GET,
                 null,
                 OpenWeatherMapWeatherResponse.class);
+    }
+
+    @Override
+    public ResponseEntity<OpenWeatherMapWeatherResponse> executeRequestRepeated(String url, int attempt, int limit) {
+        try {
+            log.info("Attempt #{} /{}. Connecting to={} ", attempt, limit, url);
+            return executeRequest(url);
+        } catch (HttpClientErrorException response) {
+            if (!response.getStatusCode().is2xxSuccessful() && attempt < 5) {
+                attempt++;
+                log.info("Attempt #{}/{}. Connecting to={} ", attempt, limit, url);
+                executeRequestRepeated(url, attempt, limit);
+            } else {
+                log.warn("Did not successfully connect to={}", url);
+                return ResponseEntity.internalServerError().build();
+            }
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     private String getUrl(Coordinates coordinates) {

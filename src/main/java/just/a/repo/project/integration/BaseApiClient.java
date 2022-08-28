@@ -5,7 +5,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class BaseApiClient {
-
     protected final RestTemplate restTemplate;
 
     public BaseApiClient(RestTemplate restTemplate) {

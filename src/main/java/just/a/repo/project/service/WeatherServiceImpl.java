@@ -67,6 +67,7 @@ public class WeatherServiceImpl implements WeatherService {
 
     private WeatherModelExtended getWeather(@NonNull Coordinates coordinates, String location) {
         if (coordinates.getLat() == null || coordinates.getLon() == null) {
+            log.warn("Missing coordinate data. Aborting call!");
             return WeatherModelExtended.builder().build();
         }
         OpenWeatherMapWeatherResponse weatherApiResponse = openWeatherMapApiClient.getWeather(coordinates);
