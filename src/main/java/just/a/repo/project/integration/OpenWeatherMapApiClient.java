@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Controller
-public class OpenWeatherMapApiClient extends BaseApiClient implements RestClient {
+public class OpenWeatherMapApiClient extends RestApiClient implements RestClient {
 
     @Value("${openweathermap.api.key}")
     private String apiKey;

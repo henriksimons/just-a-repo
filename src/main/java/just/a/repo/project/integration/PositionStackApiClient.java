@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Controller
-public class PositionStackApiClient extends BaseApiClient implements RestClient {
+public class PositionStackApiClient extends RestApiClient implements RestClient {
 
     @Value("${positionstack.api.key}")
     private String apiKey;
