@@ -12,7 +12,6 @@ C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\Coordinates.j
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\WeatherService.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\mapper\CoordinatesMapper.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\weather\WindDirection.java
-C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\BaseApiClient.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\ResponseObject.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\prognosis\Day.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\service\WeatherServiceImpl.java
@@ -37,6 +36,7 @@ C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\weather\SaveW
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\Celsius.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\mapper\Utils.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\configuration\CacheConfiguration.java
+C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\RestApiClient.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\OpenWeatherMapApiClient.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\model\prognosis\PrognosisModel.java
 C:\Users\h3nke\just-a-repo\src\main\java\just\a\repo\project\integration\model\openweathermap\Coord.java

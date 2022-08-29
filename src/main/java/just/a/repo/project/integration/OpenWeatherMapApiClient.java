@@ -16,22 +16,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 public class OpenWeatherMapApiClient extends RestApiClient implements RestClient {
 
-    @Value("${openweathermap.api.key}")
-    private String apiKey;
+    private final String apiKey;
 
-    public OpenWeatherMapApiClient(RestTemplate restTemplate) {
+    public OpenWeatherMapApiClient(RestTemplate restTemplate,
+                                   @Value("${openweathermap.api.key}") String apiKey) {
         super(restTemplate);
+        this.apiKey = apiKey;
     }
 
     public OpenWeatherMapWeatherResponse getWeather(Coordinates coordinates) {
         try {
             String url = getUrl(coordinates);
             ResponseEntity<OpenWeatherMapWeatherResponse> response = executeRequestRepeated(url, 1, 5);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("Successfully fetched weather data from OpenWeatherMap API:\n{}", url);
-                return response.getBody();
-            } else
-                return OpenWeatherMapWeatherResponse.builder().build();
+            return response.getStatusCode().is2xxSuccessful() ?
+                    response.getBody()
+                    : OpenWeatherMapWeatherResponse.builder().build();
         } catch (Exception e) {
             log.error("Could not fetch weather due to error: {}", e.getMessage(), e);
             return OpenWeatherMapWeatherResponse.builder().build();
@@ -40,11 +39,15 @@ public class OpenWeatherMapApiClient extends RestApiClient implements RestClient
 
     @Override
     public ResponseEntity<OpenWeatherMapWeatherResponse> executeRequest(String url) {
-        return restTemplate.exchange(
+        ResponseEntity<OpenWeatherMapWeatherResponse> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
                 OpenWeatherMapWeatherResponse.class);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            log.info("Successfully fetched data from uri= {}", url);
+        }
+        return response;
     }
 
     @Override
@@ -57,11 +60,8 @@ public class OpenWeatherMapApiClient extends RestApiClient implements RestClient
                 attempt++;
                 log.info("Attempt #{}/{}. Connecting to={} ", attempt, limit, url);
                 executeRequestRepeated(url, attempt, limit);
-            } else {
-                log.warn("Did not successfully connect to={}", url);
-                return ResponseEntity.internalServerError().build();
             }
-            return ResponseEntity.internalServerError().build();
+            throw new RuntimeException("Could not connect to=" + url + " HTTP fault code: " + response.getStatusCode().getReasonPhrase());
         }
     }
 

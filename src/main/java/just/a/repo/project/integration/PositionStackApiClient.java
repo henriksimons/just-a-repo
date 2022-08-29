@@ -14,23 +14,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 public class PositionStackApiClient extends RestApiClient implements RestClient {
 
-    @Value("${positionstack.api.key}")
-    private String apiKey;
+    private final String apiKey;
 
-
-    public PositionStackApiClient(RestTemplate restTemplate) {
+    public PositionStackApiClient(RestTemplate restTemplate,
+                                  @Value("${positionstack.api.key}") String apiKey) {
         super(restTemplate);
+        this.apiKey = apiKey;
     }
 
     public PositionStackApiResponse getLocationData(String searchLocation) {
         try {
             String url = getUrl(searchLocation);
             ResponseEntity<PositionStackApiResponse> response = executeRequestRepeated(url, 1, 5);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("Successfully fetched weather data from PositionStack API:\n{}", url);
-                return response.getBody();
-            } else
-                return PositionStackApiResponse.builder().build();
+            return response.getStatusCode().is2xxSuccessful()
+                    ? response.getBody()
+                    : PositionStackApiResponse.builder().build();
         } catch (Exception e) {
             log.error("Could not fetch position due to error: {}", e.getMessage(), e);
             return PositionStackApiResponse.builder().build();
@@ -38,11 +36,16 @@ public class PositionStackApiClient extends RestApiClient implements RestClient 
     }
 
     public ResponseEntity<PositionStackApiResponse> executeRequest(String url) {
-        return restTemplate.exchange(
+        ResponseEntity<PositionStackApiResponse> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
                 PositionStackApiResponse.class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            log.info("Successfully fetched data from uri= {}", url);
+        }
+        return response;
     }
 
     @Override
@@ -54,11 +57,9 @@ public class PositionStackApiClient extends RestApiClient implements RestClient 
             if (!response.getStatusCode().is2xxSuccessful() && attempt < 5) {
                 attempt++;
                 executeRequestRepeated(url, attempt, limit);
-            } else {
-                log.warn("Did not successfully connect to={}", url);
-                return ResponseEntity.internalServerError().build();
             }
-            return ResponseEntity.internalServerError().build();
+            log.warn("Did not successfully connect to={}", url);
+            throw new RuntimeException("Could not connect to=" + url + " HTTP fault code: " + response.getStatusCode().getReasonPhrase());
         }
     }
 

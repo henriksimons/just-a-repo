@@ -25,6 +25,7 @@ just\a\repo\project\model\Celsius.class
 just\a\repo\project\rest\RestService.class
 just\a\repo\project\model\prognosis\PrognosisModel.class
 just\a\repo\project\integration\PositionStackApiClient.class
+just\a\repo\project\integration\RestApiClient.class
 just\a\repo\project\model\weather\WeatherModel.class
 just\a\repo\project\model\Celsius$CelsiusBuilder.class
 just\a\repo\project\integration\model\positionstack\Result$ResultBuilder.class
@@ -45,7 +46,6 @@ just\a\repo\project\integration\model\positionstack\Result.class
 just\a\repo\project\integration\model\openweathermap\Main.class
 just\a\repo\project\integration\RestClient.class
 just\a\repo\project\model\Kelvin.class
-just\a\repo\project\integration\BaseApiClient.class
 just\a\repo\project\service\WeatherRepository.class
 just\a\repo\project\configuration\RestTemplateConfiguration.class
 just\a\repo\project\integration\model\openweathermap\Weather$WeatherBuilder.class
