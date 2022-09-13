@@ -5,7 +5,7 @@ import just.a.repo.project.model.Coordinates;
 import just.a.repo.project.model.prognosis.PrognosisModel;
 import just.a.repo.project.model.weather.SaveWeatherResponse;
 import just.a.repo.project.model.weather.WeatherModelExtended;
-import just.a.repo.project.mongodb.model.WeatherEntity;
+import just.a.repo.project.model.mongodb.WeatherEntity;
 import just.a.repo.project.service.ResponseObject;
 import just.a.repo.project.service.WeatherService;
 import lombok.RequiredArgsConstructor;
